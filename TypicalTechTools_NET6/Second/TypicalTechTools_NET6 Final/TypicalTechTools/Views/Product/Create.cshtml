@@ -1,0 +1,57 @@
+﻿@model TypicalTechTools.Models.Product
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Add New Product</h1>
+
+
+<h4>Products</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label" style="font-family: 
+                   Arial, sans-serif; font-size: 16px; font-weight: bold;">Product Name</label>
+
+
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductPrice" class="control-label" style="font-family:
+                   Arial, sans-serif; font-size: 16px; font-weight: bold;">Product Price</label>
+
+                <input asp-for="ProductPrice" class="form-control" />
+                <span asp-validation-for="ProductPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductDescription" class="control-label" style="font-family:
+                   Arial, sans-serif; font-size: 16px; font-weight: bold;">Product Description</label>
+
+                <input asp-for="ProductDescription" class="form-control" />
+                <span asp-validation-for="ProductDescription" class="text-danger"></span>
+            </div>
+          
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" style="font-family: Arial, 
+                    sans-serif; font-size: 14px; font-weight: bold; border: 2px solid #007bff;" />
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit New Product" class="btn btn-lg btn-dark" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to Product</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

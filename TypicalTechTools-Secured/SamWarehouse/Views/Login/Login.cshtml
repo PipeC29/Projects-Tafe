@@ -1,0 +1,64 @@
+﻿@model BookStoreApp.Data.LoginDTO
+
+@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Name"] = "Login";
+
+    string loginMessage = ViewBag.LoginMessage ?? "";
+
+}
+
+<div class="door-container">
+    <div class="door">
+        <div class="iris"></div>
+    </div>
+</div>
+@*<img src="~/images/Sams-Warehouse-Shopping-Cart.svg" alt="Shop Icon" />
+*@
+
+
+<h1>Login</h1>
+
+<h4>User</h4>
+<hr />
+<div class="row">
+
+    <div class="col-md-4">
+        <form asp-action="Login">
+            @{ 
+                if (string.IsNullOrWhiteSpace(loginMessage) == false)
+                {
+                    <label style="color:red" >@loginMessage</label>
+                }
+            }
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" type="password"/>
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            
+            
+            @Html.HiddenFor(c => c.ReturnUrl)
+
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Home">Back to Homepage</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

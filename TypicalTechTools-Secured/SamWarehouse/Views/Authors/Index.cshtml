@@ -1,0 +1,80 @@
+﻿@model IEnumerable<BookStoreApp.Data.User>
+@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Name"] = "Index";
+    string userName = Context.Session.GetString("Name") ?? "";
+}
+
+<h1>Index</h1>
+
+@*@{
+    if (String.IsNullOrWhiteSpace(userName) == false)
+    {
+        <h2>Hello @userName</h2>
+    }
+    else
+    {
+        <h2>Hello Guest</h2>
+    }
+}*@
+
+
+@*<p>
+    <a class="btn btn-info btn-lg" id="btnCreateAuthor">Create New</a>
+</p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+               @* <td>
+                    <a class="btn btn-success edit-Button" value="@item.Id">Edit</a>
+                    <a class="btn btn-secondary details-Button" value="@item.Id">Details</a>
+                    <a class="btn btn-danger delete-Button" value="@item.Id">Delete</a>
+                    
+                </td>*@
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script src="~/js/authors.js" asp-append-version="true"></script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+<div class="modal fade" id="authorModal" tabindex="-1" aria-labelledby="authorModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="authorModalTitle">Example Modal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="authorModalBody">
+                
+            </div>
+        </div>
+    </div>
+</div>

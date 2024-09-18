@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "HomeIndex";
+    string name = Context.Session.GetString("Name") ?? "Admin";
+    int viewed = Context.Session.GetInt32("Viewed") ?? -1;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Today's date is @DateTime.Now.ToString("dddd, MMMM dd, yyyy")  at <span id="currentTime"></span> </p> |
+    
+
+    <script>
+        function updateTime() {
+            var currentTimeElement = document.getElementById("currentTime");
+            if (currentTimeElement) {
+                var now = new Date();
+                var hours = now.getHours().toString().padStart(2, '0');
+                var minutes = now.getMinutes().toString().padStart(2, '0');
+                currentTimeElement.textContent = hours + ":" + minutes;
+            }
+        }
+
+        // Update the time initially
+        updateTime();
+
+        // Update the time every second
+        setInterval(updateTime, 1000); // Update every second
+    </script>
+
+    
+
+    
+
+    <div class ="card">
+        
+        <h2 style="color: lightseagreen;">
+            Please Log In.
+        </h2>
+        
+    </div>
+
+    <div>
+        <!-- Link to HomeIndex for non-logged-in users -->
+        <a href="@Url.Action("HomeIndex", "Home")" class="btn btn-danger m-5">Back to Home</a>
+    </div>
+
+    
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

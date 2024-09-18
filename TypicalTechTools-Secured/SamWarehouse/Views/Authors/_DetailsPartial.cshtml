@@ -1,0 +1,50 @@
+﻿@model BookStoreApp.Models.Author
+
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.LastName)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.LastName)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.FirstName)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.FirstName)
+    </dd>
+</dl>
+<div class="p-2">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Year
+                </th>
+                <th>
+                    Price
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Books)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Unit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

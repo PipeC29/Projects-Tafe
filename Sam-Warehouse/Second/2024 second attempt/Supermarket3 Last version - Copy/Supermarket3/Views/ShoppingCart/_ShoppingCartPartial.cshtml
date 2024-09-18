@@ -1,0 +1,48 @@
+﻿@model Supermarket3.Models.ShoppingCart
+
+@if (Model != null && Model.CartItems.Count > 0)
+{
+    <div class="bg-theme-colour-0 container overflow-auto h-75 higth">
+        @foreach (var item in Model.CartItems)
+        {
+            <div class="card p-1 bg-theme-colour-1">
+                <p>@item.ProductItem.Name</p>
+                <div class="row">
+
+                    <form class="item-qty-form d-flex justify-content-start align-content-center m-1">
+                        @Html.HiddenFor(modelItem => item.Id)
+                        <button class=" minus-button btn btn-success"> - </button>
+                        <p class="qty" name="quantity">@item.Quantity</p>
+                        <button class=" plus-button btn btn-success"> + </button>
+                        <p class="lineTotal mx-3" value="@item.ProductItem.Price">Total: @(item.ProductItem.Price * item.Quantity)</p>
+                        <button type="button" value="@item.Id" class="remove-button">
+                            Remove
+                        </button>
+                    
+                    </form>
+
+                   
+                </div>
+            </div>
+        }
+    </div>
+
+    <footer class="footerCart bg-theme-colour-0">
+        <div class="summary-container bg-theme-colour-1">
+            <h4>Summary</h4>
+            <p id="modalGrandTotal" ></p>
+            <p>Tax included.</p>
+
+            @{
+                if (Model != null)
+                {
+                    <button type="button" value="@Model.Id" id="btnCheckout" class="btn btn-primary w-25">Checkout</button>
+                    <button type="button" value="@Model.Id" id="btnClearCart" class="btn btn-danger w-25">Clear Cart</button>
+                }
+            }
+
+        </div>
+
+
+    </footer>
+}

@@ -1,0 +1,96 @@
+﻿@model IEnumerable<BookStoreApp.Models.Book>
+@using Microsoft.AspNetCore.Http
+
+@{
+    // Set the title of the view to "Index"
+    ViewData["Name"] = "Index";
+
+    // Retrieve the last book search from session state, or set it to an empty string if it's null
+    string lastSearch = Context.Session.GetString("LastBookSearch") ?? "";
+
+    // Clear the last book search in session state
+    Context.Session.SetString("LastBookSearch", "");
+
+    bool Authenticated = Context.User.Identity.IsAuthenticated;
+    bool isAdmin = Context.User.IsInRole("Admin");
+    var id = Context.Session.GetInt32("ID") ?? -1;
+}
+
+
+
+<h1>Index</h1>
+<!--Creates a right floated container-->
+<div style="float:right">
+    <!--Creates a medium column with a width of 9/12 its parent-->
+    <div class="col-md-9">
+        <!--Create a form which will trigger the ShowSearchResults action event-->
+        <form asp-action="ShowSearchResults">
+            <div class="form-group">
+                <label for="SearchPhrase">Search for:</label>
+                <!-- Set the value of the search phrase input to the last book search -->
+                <input name="SearchPhrase" value="@lastSearch" class="form-control" />
+            </div>
+            <div class="form-group">
+                <!-- Create a submit button to submit the search form -->
+                <input type="submit" value="Search" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<p>
+
+    @{
+        //Get the user id from the user session.
+        id = Context.Session.GetInt32("ID") ?? -1;
+
+        if (Authenticated && id > -1)
+        {
+
+            if (isAdmin)
+            {
+                <a class="btn btn-info btn-lg" asp-action="Create">Create New</a>
+            }
+
+
+        }
+        else
+        {
+            <a asp-action="Login" asp-controller="Login" class="btn btn-success">Login</a>
+        }
+    }
+    
+</p>
+
+
+<div class="container row d-flex justify-content-around my-5">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-4 width: 20vw;">
+                <div class="single-card card shadow m-2 text-center" style="width: 100%;">
+                    <h2 class="alert-info"> @product.Name</h2>
+                    <h3>$@product.Price</h3>
+                    <p style="height: 12rem; font-size: 22px;">
+                        <strong>Product Description:</strong> @product.Unit
+                    </p>
+                    <small><strong>Product Code:</strong> @product.Id</small> 
+                   @* <small><strong>Updated Date:</strong> @product.UpdatedDate.ToString("dd MMMM yyyy hh:mm tt")</small>*@
+                    <div>
+                        <a class="add-item-button btn btn-success" value="@product.Id">
+                            Add To Cart
+                        </a>
+                    </div>
+                    <div>
+                        <!-- You can add additional content here if needed -->
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+<script src="~/js/books.js" asp-append-version="true"></script>

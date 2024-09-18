@@ -1,0 +1,91 @@
+﻿@model IEnumerable<TypicalTechTools.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    string lastSearch = Context.Session.GetString("LastProductSearch") ?? "";
+
+    // Retrieve the Authentication status from the session
+    string authStatus = Context.Session.GetString("IsAuthenticated");
+
+    // Statements split up for debugging purposes
+    bool test1 = !String.IsNullOrEmpty(authStatus);
+    if (authStatus != null)
+    {
+        bool test2 = authStatus.Equals("true");
+    }
+
+    // Use a flag to indicate whether or not the user is logged in
+    bool loggedIn = !String.IsNullOrEmpty(authStatus) && authStatus.Equals("true");
+}
+
+<div class="text-center">
+    <h1>Products</h1>
+</div>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="ShowSearchResults">
+                <div class="form-group">
+                    <label for="searchPhrase" class="control-label" style="font-size:larger">Search</label>
+                    <input name="searchPhrase" value="@lastSearch" class="form-control" style="width: 885px;">
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Search" class="btn btn-primary" style="width: 150px; font-size: 16px; font-weight: bold;" />
+                </div>
+                <div>
+                    <a asp-action="Index">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container row d-flex justify-content-around my-5">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-4 width: 20vw;">
+                <div class="single-card card shadow m-2 text-center" style="width: 100%;">
+                    <h2 class="alert-info"> @Html.Encode(product.ProductName)</h2> <h3>$@product.ProductPrice</h3>
+                    <p style="height: 12rem; font-size: 22px;">
+                        <strong>Product Description:</strong> @product.ProductDescription
+                    </p>
+                    <small><strong>Product Code:</strong> @product.ProductCode</small> |
+                    <small><strong>Updated Date:</strong> @product.UpdatedDate.ToString("dd MMMM yyyy hh:mm tt")</small>
+                    <div>
+                        @if (loggedIn)
+                        {
+                            @Html.ActionLink("Comments", "CommentList", "Comment", new { id = product.ProductCode },
+                    new { @class = "btn btn-primary m-2" })
+
+                            <a class="btn btn-outline-primary btn-lg" asp-action="Edit" asp-route-id="@product.ProductCode">Edit</a>
+                            <a class="btn btn-danger btn-lg" asp-action="Delete" asp-route-id="@product.ProductCode">Delete</a>
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Comments", "CommentList", "Comment", new { id = product.ProductCode },
+                    new { @class = "btn btn-primary m-2" })
+                        }
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div>
+    <a href="@Url.Action("HomeIndex", "Home")" class="btn btn-danger m-5">Back to Home</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

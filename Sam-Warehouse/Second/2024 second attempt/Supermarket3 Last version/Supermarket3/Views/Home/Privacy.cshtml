@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Name"] = "About Us";
+}
+<h1>@ViewData["Name"]</h1>
+
+<div class="about-container">
+    <main>
+        <section>
+            <h3>Overview</h3>
+            <p>Sam's Warehouse is a food and grocery retailer.</p>
+        </section>
+
+        <section>
+            <h3>Mission</h3>
+            <p>Our mission is to provide our customers with the best products and services at competitive prices. We are committed to providing a convenient and enjoyable shopping experience for all our customers.</p>
+        </section>
+
+        <section>
+            <h3>Products and Services</h3>
+            <ul>
+                <li>Fresh produce</li>
+                <li>Packaged goods</li>
+                <li>Cleaning supplies</li>
+                <li>Personal care products</li>
+                <li>Home delivery</li>
+                <li>In-store pickup</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Hours of Operation</h3>
+            <p>Monday through Friday: 8:00 AM to 8:00 PM</p>
+            <p>Saturdays: 8:00 AM to 7:00 PM</p>
+            <p>Sundays: 9:00 AM to 6:00 PM</p>
+        </section>
+
+        <section>
+            <h3>Contact Information</h3>
+            <p>Phone: 123456789</p>
+            <p>Email: Samwarehouse@email.com</p>
+        </section>
+    </main>
+
+    <iframe class="drone-video" src="https://www.youtube.com/embed/iUtnZpzkbG8"
+            title="No Copyright Drone Shots | Royalty free drone shots | free stock videos | Drone footage nature shots" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+
+<style>
+    .about-container {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    main {
+        flex: 1;
+    }
+
+    .drone-video {
+        flex: 0 0 1200px; /* Make the video twice as wide as the original */
+        height: 400px; /* Make the video twice as tall as the original */
+        margin-left: 20px; /* Optional: Add some space between the text and video */
+    }
+</style>

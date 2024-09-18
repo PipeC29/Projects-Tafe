@@ -1,0 +1,75 @@
+﻿@model IEnumerable<TypicalTechTools.Models.Comment>
+@using Microsoft.AspNetCore.Http;
+
+@{
+    ViewData["Title"] = "CommentList";
+    int productCode = int.Parse(@Context.Request.RouteValues["id"].ToString());
+
+    // Retrieve the Authentication status from the session
+    string authStatus = Context.Session.GetString("IsAuthenticated");
+
+    // Use a flag to indicate whether or not the user is logged in
+    bool loggedIn = !String.IsNullOrEmpty(authStatus) && authStatus.Equals("true");
+
+    string sessionId = ViewBag.SessionId as string;
+}
+
+<h1>Comments for Product code: @productCode</h1>
+
+<p>
+    
+        @Html.ActionLink("Add a new Comment", "AddComment", "Comment", new { productCode = @productCode }, new { @class = "btn btn-group-lg btn-info" })
+    
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CommentText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @Html.HiddenFor(modelItem => item.CommentId)
+                @Html.HiddenFor(modelItem => item.ProductCode)
+                @Html.HiddenFor(modelItem => item.SessionId)
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.CommentText)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+
+                <td>
+                    @if (sessionId == item.SessionId)
+                    {
+                        @Html.ActionLink("Edit", "EditComment", item, new { @class = "btn btn-sm btn-warning ml-1" })
+                        <form method="post" action="@Url.Action("DeleteCommentConfirmed", "Comment", new { commentId = item.CommentId })" onsubmit="return confirm('Are you sure you want to delete this comment?');">
+                            <input type="hidden" name="SessionId" value="@ViewBag.SessionId" />
+                            <button type="submit" class="btn btn-sm btn-danger ml-1">Delete</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <!-- Redirect back to the home page -->
+    <a asp-action="Index" asp-controller="Product" class="btn btn-group-lg btn-info">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

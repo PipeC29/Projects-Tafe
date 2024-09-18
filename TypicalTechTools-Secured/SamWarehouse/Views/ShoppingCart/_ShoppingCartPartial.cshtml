@@ -1,0 +1,61 @@
+﻿@model BookStoreApp.Models.ShoppingCart
+
+@if(Model != null && Model.CartItems.Count > 0)
+{
+    <div class="container overflow-auto h-75">
+        @foreach(var item in Model.CartItems)
+        {
+            <div class="card p-1">
+                <p>@item.BookItem.Name</p>
+                <div class="row">
+                    
+
+                    <form class="item-qty-form d-flex justify-content-between col-3 m-1">
+                        @Html.HiddenFor(modelItem => item.Id)
+                        @*<input type="hidden" name="id" value="@item.Id" />*@
+                        <button class="minus-button btn btn-success"> - </button>
+                        <p class="qty mx-5" name="quantity">@item.Quantity</p>
+                        <button class="plus-button btn btn-success"> + </button>
+                        <p class="lineTotal mx-3" value="@item.BookItem.Price">Total: @(item.BookItem.Price * item.Quantity)</p>
+                    </form>
+
+
+
+                    <button type="button" value="@item.Id" class="remove-button btn btn-danger">
+                        Remove
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <footer class="footer aling-botton">
+        <div class="container">
+
+            <h4>Summary</h4>
+            <p  id="modalGrandTotal"></p>
+            <p>Tax included.</p>
+
+            @{
+                if(Model != null)
+                {
+                    <button type="button" value="@Model.Id" id="btnCheckout" class="btn btn-primary w-25">Checkout</button>
+                }
+            }
+           
+        </div>
+    </footer>
+
+@*
+    <div class="footer border-top modal-footer">
+        <div>
+            <h4>Summary</h4>
+            <p class="text-light" id="modalGrandTotal"></p>
+            <p>Tax included.</p>
+        </div>
+
+
+    </div>*@
+
+}
+

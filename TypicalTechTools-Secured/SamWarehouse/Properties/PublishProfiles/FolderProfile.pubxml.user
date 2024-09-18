@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\Student\source\repos\BookStoreApp\BookStoreApp\bin\Release\net6.0\publish\</_PublishTargetUrl>
+    <History>True|2023-11-01T05:16:19.3569359Z;True|2023-11-01T15:11:55.7405729+10:00;True|2023-11-01T15:11:35.8947503+10:00;True|2023-11-01T15:06:58.4835885+10:00;True|2023-11-01T14:54:20.5857270+10:00;True|2023-11-01T14:07:02.0591194+10:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>
